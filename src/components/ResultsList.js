@@ -1,46 +1,47 @@
 import React from "react";
+import { View, TouchableOpacity } from "react-native";
 import {
-  View,
   Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
+  StyleService,
+  List,
+  useStyleSheet,
+  Layout,
+} from "@ui-kitten/components";
 import ResultsDetail from "./ResultsDetail";
 import { withNavigation } from "react-navigation";
 
 const ResultsList = ({ title, results, navigation }) => {
+  const styles = useStyleSheet(themedStyle);
+
   return !results.length ? null : (
-    <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
-      <FlatList
+    <Layout style={styles.container} level="3">
+      <Text category="h5" style={styles.title}>
+        {title}
+      </Text>
+      <List
+        style={styles.list}
         horizontal
         showsHorizontalScrollIndicator={false}
         data={results}
         keyExtractor={(result) => result.id}
         renderItem={({ item }) => {
-          return (
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Result", { id: item.id })}
-            >
-              <ResultsDetail result={item} />
-            </TouchableOpacity>
-          );
+          return <ResultsDetail result={item} />;
         }}
       />
-    </View>
+    </Layout>
   );
 };
 
-const styles = StyleSheet.create({
+const themedStyle = StyleService.create({
   container: {
-    marginBottom: 10,
+    flex: 1,
+  },
+  list: {
+    backgroundColor: "none",
   },
   title: {
-    fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: "700",
     marginHorizontal: 15,
-    marginBottom: 5,
   },
 });
 

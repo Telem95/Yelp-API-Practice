@@ -1,24 +1,41 @@
 import React from "react";
-import { View, Image, Text, StyleSheet } from "react-native";
+import { Image, View } from "react-native";
+import { Card, StyleService, Text, useStyleSheet } from "@ui-kitten/components";
+import { navigate } from "../navigationRef";
 
 const ResultsDetail = ({ result }) => {
-  return (
-    <View style={styles.container}>
+  const styles = useStyleSheet(themedStyles);
+
+  const renderCardHeader = () => (
+    <View>
       <Image style={styles.image} source={{ uri: result.image_url }} />
-      <Text style={styles.name}>{result.name}</Text>
+    </View>
+  );
+
+  return (
+    <Card
+      style={styles.container}
+      appearance="filled"
+      header={renderCardHeader}
+      onPress={() => navigate("Result", { id: result.id })}
+    >
+      <Text style={styles.name} numberOfLines={1}>
+        {result.name}
+      </Text>
       <Text style={styles.reviews}>
         {result.rating} Stars, {result.review_count} Reviews
       </Text>
-    </View>
+    </Card>
   );
 };
 
-const styles = StyleSheet.create({
+const themedStyles = StyleService.create({
   container: {
-    marginLeft: 15,
+    width: 200,
+    margin: 15,
+    borderRadius: 10,
   },
   image: {
-    width: 200,
     height: 125,
     borderRadius: 4,
     marginBottom: 5,
@@ -27,6 +44,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   reviews: {
+    fontSize: 12,
     fontWeight: "300",
   },
 });

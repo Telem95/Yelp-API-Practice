@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, ScrollView } from "react-native";
+import {
+  TopNavigation,
+  Divider,
+  Layout,
+  StyleService,
+  useStyleSheet,
+  Text,
+} from "@ui-kitten/components";
 import SearchBar from "../components/SearchBar";
 import useResults from "../hooks/useResults";
 import ResultsList from "../components/ResultsList";
@@ -16,7 +24,9 @@ const SearchScreen = () => {
   };
 
   return (
-    <>
+    <Layout level="3" style={styles.container}>
+      <TopNavigation title="Yelp Search" alignment="center" />
+      <Divider />
       <SearchBar
         term={term}
         onTermChange={setTerm}
@@ -34,12 +44,14 @@ const SearchScreen = () => {
           results={filterResultsByPrice("$$$")}
         />
       </ScrollView>
-    </>
+    </Layout>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {},
+const styles = StyleService.create({
+  container: {
+    flex: 1,
+  },
 });
 
 export default SearchScreen;

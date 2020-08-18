@@ -1,11 +1,14 @@
 import React from "react";
-import { View, StyleSheet, TextInput } from "react-native";
+import { View, TextInput } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { StyleService, useStyleSheet, Icon } from "@ui-kitten/components";
 
 const SearchBar = ({ term, onTermChange, onTermSubmit }) => {
+  const styles = useStyleSheet(themedStyle);
+
   return (
     <View style={styles.container}>
-      <Feather name="search" style={styles.searchIcon} />
+      <Icon style={styles.icon} fill="#091C7A" name="search-outline" />
       <TextInput
         autoCapitalize="none"
         autoCorrect={false}
@@ -19,11 +22,11 @@ const SearchBar = ({ term, onTermChange, onTermSubmit }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const themedStyle = StyleService.create({
   container: {
     marginVertical: 10,
     marginHorizontal: 15,
-    backgroundColor: "#eaeaea",
+    backgroundColor: "white",
     height: 50,
     borderRadius: 5,
     flexDirection: "row",
@@ -33,10 +36,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "300",
   },
-  searchIcon: {
-    fontSize: 35,
+  icon: {
+    width: 32,
+    height: 32,
     alignSelf: "center",
     marginHorizontal: 8,
+    marginTop: 8,
   },
 });
 
